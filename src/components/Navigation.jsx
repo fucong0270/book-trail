@@ -60,8 +60,7 @@ export default function Navigation() {
           {/* Profile button */}
           <button className="nav-profile" onClick={() => navigate('welcome')}>
             <span style={{ fontSize: '1.2rem' }}>{activeProfile.avatar}</span>
-            <span>{activeProfile.name}</span>
-            <span style={{ opacity: 0.75 }}>/ {activeProfile.chineseName}</span>
+            <span style={{ whiteSpace: 'nowrap' }}>{activeProfile.name} / {activeProfile.chineseName}</span>
             <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>▾</span>
           </button>
 
