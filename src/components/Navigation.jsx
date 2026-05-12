@@ -34,10 +34,10 @@ export default function Navigation() {
     <nav className="nav">
       <div className="nav-inner">
         <button className="nav-logo" onClick={() => handleNav(isAdmin ? 'admin' : 'dashboard')}>
-          <span style={{ fontSize: '1.55rem', lineHeight: 1 }}>📚</span>
+          <span style={{ fontSize: '2rem', lineHeight: 1 }}>📚</span>
           <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', lineHeight: 1.15, gap: 0 }}>
-            <span style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '0.04em' }}>Book</span>
-            <span style={{ fontSize: '0.92rem', fontWeight: 900, letterSpacing: '0.04em' }}>Trail</span>
+            <span style={{ fontSize: '1.3rem', fontWeight: 900, letterSpacing: '0.04em' }}>Book</span>
+            <span style={{ fontSize: '1.3rem', fontWeight: 900, letterSpacing: '0.04em' }}>Trail</span>
           </span>
         </button>
 
@@ -51,7 +51,6 @@ export default function Navigation() {
             >
               <span>{link.icon}</span>
               <span>{link.label}</span>
-              <span style={{ fontSize: '0.78rem', color: 'inherit', opacity: 0.75 }}>/ {link.chinese}</span>
             </button>
           ))}
         </div>
