@@ -175,18 +175,22 @@ export default function TrailNotesList() {
 }
 
 function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onDelete, onViewBook }) {
-  const [expanded, setExpanded] = useState(false)
+  const [showVocab, setShowVocab] = useState(false)
+
+  // The main note content — kids write in `notes` field; fall back to legacy fields
+  const mainContent = note.notes ||
+    [note.favoritePart, note.summary, note.learned, note.feeling].filter(Boolean).join('\n\n')
 
   return (
     <div className="card" style={{ padding: '1.1rem 1.25rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
-        <div style={{ flex: 1, cursor: 'pointer' }} onClick={() => setExpanded(e => !e)}>
-          {/* Top row: mood + book + date */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+      {/* Header row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.75rem' }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '1.3rem' }}>{getMoodEmoji(note.mood)}</span>
             <button
-              style={{ fontWeight: 800, fontSize: '0.92rem', color: 'var(--theme-color)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
-              onClick={(e) => { e.stopPropagation(); onViewBook() }}
+              style={{ fontWeight: 800, fontSize: '0.95rem', color: 'var(--theme-color)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              onClick={onViewBook}
             >
               {bookTitle}
             </button>
@@ -194,11 +198,8 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
               <span style={{ fontSize: '0.78rem', color: 'var(--text-soft)' }}>{bookChineseTitle}</span>
             )}
           </div>
-
-          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-soft)' }}>
-              📅 {note.date}
-            </span>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-soft)' }}>📅 {note.date}</span>
             <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-soft)' }}>
               📄 p.{note.pageFrom}–{note.pageTo} ({note.totalPagesRead} pages / 页)
             </span>
@@ -208,120 +209,85 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
               </span>
             )}
           </div>
-
-          {note.favoritePart && !expanded && (
-            <p style={{
-              fontSize: '0.83rem',
-              color: 'var(--text-soft)',
-              lineHeight: 1.5,
-              borderLeft: '3px solid var(--theme-color)',
-              paddingLeft: '0.6rem',
-            }}>
-              ❤️ {note.favoritePart.slice(0, 140)}{note.favoritePart.length > 140 ? '...' : ''}
-            </p>
-          )}
         </div>
-
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flexShrink: 0 }}>
           <button className="btn btn-secondary btn-sm" onClick={onEdit}>✏️ Edit / 编辑</button>
           <button className="btn btn-danger btn-sm" onClick={onDelete}>🗑️</button>
         </div>
       </div>
 
-      {/* Expanded content */}
-      {expanded && (
-        <div style={{ marginTop: '0.85rem', borderTop: '1px solid var(--border)', paddingTop: '0.85rem' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-            {note.favoritePart && (
-              <NoteField icon="❤️" label="Favorite Part / 最喜欢的部分" value={note.favoritePart} />
-            )}
-            {note.summary && (
-              <NoteField icon="📋" label="What Happened / 发生了什么" value={note.summary} />
-            )}
-            {note.learned && (
-              <NoteField icon="💡" label="What I Learned / 我学到了什么" value={note.learned} />
-            )}
-            {note.feeling && (
-              <NoteField icon="💬" label="My Feeling / 我的感受" value={note.feeling} />
-            )}
-            {note.favoriteQuote && (
-              <NoteField icon="💬" label="Favorite Quote / 最喜欢的一句话" value={note.favoriteQuote} italic />
-            )}
-            {note.question && (
-              <NoteField icon="❓" label="My Question / 我的问题" value={note.question} />
-            )}
-            {note.connection && (
-              <NoteField icon="🔗" label="My Connection / 我的联想" value={note.connection} />
-            )}
-            {note.recommendToSibling !== null && note.recommendToSibling !== undefined && (
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-soft)', marginBottom: '0.25rem' }}>
-                  💝 Sibling Recommendation / 推荐给兄弟姐妹
-                </div>
-                <div style={{ fontWeight: 700 }}>
-                  {note.recommendToSibling ? '👍 Recommended / 推荐' : '👎 Not Recommended / 不推荐'}
-                </div>
-                {note.siblingRecommendationReason && (
-                  <p style={{ fontSize: '0.82rem', color: 'var(--text-soft)', marginTop: '0.2rem' }}>
-                    {note.siblingRecommendationReason}
-                  </p>
-                )}
-              </div>
-            )}
-            {note.vocabularyWords?.length > 0 && (
-              <div>
-                <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-soft)', marginBottom: '0.5rem' }}>
-                  🔤 Vocabulary Words / 词语 ({note.vocabularyWords.length})
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  {note.vocabularyWords.map(w => (
-                    <div
-                      key={w.id}
-                      className={`vocab-card${w.mastered ? ' mastered' : ''}`}
-                      style={{ fontSize: '0.82rem' }}
-                    >
-                      <span style={{ fontWeight: 800 }}>{w.word}</span>
-                      {' '}
-                      <span className="tag" style={{ fontSize: '0.7rem' }}>{w.partOfSpeech}</span>
-                      {' '}— {w.meaning}
-                      {w.exampleSentence && (
-                        <div style={{ marginTop: '0.2rem', color: 'var(--text-soft)', fontStyle: 'italic' }}>
-                          "{w.exampleSentence}"
-                        </div>
-                      )}
-                      {w.mastered && <span style={{ float: 'right', color: '#065F46', fontWeight: 700 }}>✅ Mastered / 已掌握</span>}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <button
-            className="btn btn-ghost btn-sm"
-            style={{ marginTop: '0.75rem' }}
-            onClick={() => setExpanded(false)}
-          >
-            ▲ Show Less / 收起
-          </button>
+      {/* Main note content — always visible */}
+      {mainContent ? (
+        <div style={{
+          background: 'var(--bg-warm)',
+          borderRadius: 'var(--radius-md)',
+          padding: '0.85rem 1rem',
+          fontSize: '0.92rem', lineHeight: 1.75,
+          color: 'var(--text-main)',
+          borderLeft: '4px solid var(--theme-color)',
+          marginBottom: '0.75rem',
+          whiteSpace: 'pre-wrap',
+        }}>
+          {mainContent}
+        </div>
+      ) : (
+        <div style={{ fontSize: '0.83rem', color: 'var(--text-light)', fontStyle: 'italic', marginBottom: '0.75rem' }}>
+          No notes written yet / 还没有写笔记
         </div>
       )}
 
-      {!expanded && (
-        <button
-          className="btn btn-ghost btn-sm"
-          style={{ marginTop: '0.5rem', fontSize: '0.78rem' }}
-          onClick={() => setExpanded(true)}
-        >
-          ▼ View Full Note / 查看全部
-        </button>
+      {/* Extra fields (question, connection, quote, recommendation) */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '0.5rem' }}>
+        {note.favoriteQuote && <NoteField icon="💬" label="Favorite Quote / 最喜欢的一句话" value={note.favoriteQuote} italic />}
+        {note.question && <NoteField icon="❓" label="My Question / 我的问题" value={note.question} />}
+        {note.connection && <NoteField icon="🔗" label="My Connection / 我的联想" value={note.connection} />}
+        {note.recommendToSibling !== null && note.recommendToSibling !== undefined && (
+          <div>
+            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-soft)', marginBottom: '0.2rem' }}>
+              💝 Family Recommendation / 推荐给家人
+            </div>
+            <div style={{ fontWeight: 700, fontSize: '0.85rem' }}>
+              {note.recommendToSibling ? '👍 Recommended / 推荐' : '👎 Not Recommended / 不推荐'}
+            </div>
+            {note.siblingRecommendationReason && (
+              <p style={{ fontSize: '0.82rem', color: 'var(--text-soft)', marginTop: '0.2rem' }}>
+                {note.siblingRecommendationReason}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Vocabulary words (collapsible) */}
+      {note.vocabularyWords?.length > 0 && (
+        <div style={{ marginBottom: '0.5rem' }}>
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={() => setShowVocab(v => !v)}
+            style={{ fontSize: '0.78rem' }}
+          >
+            {showVocab ? '▲' : '▼'} 🔤 Vocabulary Words / 词语 ({note.vocabularyWords.length})
+          </button>
+          {showVocab && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginTop: '0.5rem' }}>
+              {note.vocabularyWords.map(w => (
+                <div key={w.id} className={`vocab-card${w.mastered ? ' mastered' : ''}`} style={{ fontSize: '0.82rem' }}>
+                  <span style={{ fontWeight: 800 }}>{w.word}</span>
+                  {' '}<span className="tag" style={{ fontSize: '0.7rem' }}>{w.partOfSpeech}</span>
+                  {' '}— {w.meaning}
+                  {w.exampleSentence && (
+                    <div style={{ marginTop: '0.2rem', color: 'var(--text-soft)', fontStyle: 'italic' }}>"{w.exampleSentence}"</div>
+                  )}
+                  {w.mastered && <span style={{ float: 'right', color: '#065F46', fontWeight: 700 }}>✅ Mastered / 已掌握</span>}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )}
 
-      {/* Heart Notes section - always visible */}
-      <HeartNotesSection
-        trailNoteId={note.id}
-        heartNotes={note.heartNotes || []}
-      />
+      {/* Heart Notes */}
+      <HeartNotesSection trailNoteId={note.id} heartNotes={note.heartNotes || []} />
     </div>
   )
 }
