@@ -215,7 +215,7 @@ export default function ChildDashboard() {
                 key={note.id}
                 className="card"
                 style={{ padding: '1rem 1.25rem', cursor: 'pointer' }}
-                onClick={() => navigate('add-trail-note', note.bookId, note.id)}
+                onClick={() => navigate('trail-notes')}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
                   <div style={{ flex: 1 }}>
