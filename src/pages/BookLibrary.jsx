@@ -273,7 +273,7 @@ function BookCard({ book, onClick, onEdit, onDelete }) {
 
       <div style={{ display: 'flex', gap: '0.4rem', marginTop: 'auto' }}>
         <button className="btn btn-secondary btn-sm" style={{ flex: 1 }} onClick={onEdit}>
-          ✏️ Edit
+          ✏️ Edit / 编辑
         </button>
         <button className="btn btn-danger btn-sm" onClick={onDelete}>
           🗑️
@@ -356,7 +356,7 @@ function BookFormModal({ form, setForm, onSave, onClose, isEditing, categories, 
             <div className="form-group">
               <label className="form-label">⭐ Level / 难度</label>
               <select className="form-select" value={form.level} onChange={f('level')}>
-                <option value="">Select level...</option>
+                <option value="">Select level... / 选择难度</option>
                 {levels.map(l => <option key={l.value} value={l.value}>{l.label}</option>)}
               </select>
             </div>

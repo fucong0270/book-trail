@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useApp } from '../context/AppContext'
 import { MOOD_OPTIONS } from '../data/sampleData'
+import HeartNotesSection from '../components/HeartNotesSection'
 
 function getMoodEmoji(mood) {
   const found = MOOD_OPTIONS.find(m => m.value === mood)
@@ -199,11 +200,11 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
               📅 {note.date}
             </span>
             <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-soft)' }}>
-              📄 p.{note.pageFrom}–{note.pageTo} ({note.totalPagesRead} pages)
+              📄 p.{note.pageFrom}–{note.pageTo} ({note.totalPagesRead} pages / 页)
             </span>
             {note.vocabularyWords?.length > 0 && (
               <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-soft)' }}>
-                🔤 {note.vocabularyWords.length} words
+                🔤 {note.vocabularyWords.length} words / 词
               </span>
             )}
           </div>
@@ -222,7 +223,7 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flexShrink: 0 }}>
-          <button className="btn btn-secondary btn-sm" onClick={onEdit}>✏️ Edit</button>
+          <button className="btn btn-secondary btn-sm" onClick={onEdit}>✏️ Edit / 编辑</button>
           <button className="btn btn-danger btn-sm" onClick={onDelete}>🗑️</button>
         </div>
       </div>
@@ -288,7 +289,7 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
                           "{w.exampleSentence}"
                         </div>
                       )}
-                      {w.mastered && <span style={{ float: 'right', color: '#065F46', fontWeight: 700 }}>✅ Mastered</span>}
+                      {w.mastered && <span style={{ float: 'right', color: '#065F46', fontWeight: 700 }}>✅ Mastered / 已掌握</span>}
                     </div>
                   ))}
                 </div>
@@ -315,6 +316,12 @@ function TrailNoteCard({ note, bookTitle, bookChineseTitle, isAdmin, onEdit, onD
           ▼ View Full Note / 查看全部
         </button>
       )}
+
+      {/* Heart Notes section - always visible */}
+      <HeartNotesSection
+        trailNoteId={note.id}
+        heartNotes={note.heartNotes || []}
+      />
     </div>
   )
 }

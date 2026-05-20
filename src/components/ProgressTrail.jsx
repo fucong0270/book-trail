@@ -1,12 +1,12 @@
 import { useApp } from '../context/AppContext'
 
 const ENCOURAGEMENT = [
-  { min: 0, msg: "Every journey starts with a single step! 每段旅程从第一步开始！", icon: "🌱" },
-  { min: 1, msg: "Great start! Keep exploring! 开始了，继续探索！", icon: "🌿" },
-  { min: 3, msg: "You're on a roll! 你势不可挡！", icon: "🌳" },
-  { min: 5, msg: "Wow, halfway to an amazing adventure! 厉害，继续前进！", icon: "⭐" },
-  { min: 8, msg: "You're a reading champion! 你是阅读冠军！", icon: "🏆" },
-  { min: 12, msg: "Incredible reader! Your trail is legendary! 超级厉害的读者！", icon: "🌟" },
+  { min: 0, msg: "Every journey starts with a single step! / 每段旅程从第一步开始！", icon: "🌱" },
+  { min: 1, msg: "Great start! Keep exploring! / 开始了，继续探索！", icon: "🌿" },
+  { min: 3, msg: "You're on a roll! / 你势不可挡！", icon: "🌳" },
+  { min: 5, msg: "Wow, halfway to an amazing adventure! / 厉害，继续前进！", icon: "⭐" },
+  { min: 8, msg: "You're a reading champion! / 你是阅读冠军！", icon: "🏆" },
+  { min: 12, msg: "Incredible reader! Your trail is legendary! / 超级厉害的读者！", icon: "🌟" },
 ]
 
 function getMessage(count) {

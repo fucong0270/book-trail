@@ -34,10 +34,10 @@ export default function AdminDashboard() {
 
       {/* Quick nav */}
       <div className="grid-4" style={{ marginBottom: '1.75rem' }}>
-        <QuickNavCard icon="📚" title="All Books" titleZh="所有书" desc={`${books.length} books total`} onClick={() => navigate('admin-books')} color="#3B82F6" />
-        <QuickNavCard icon="✏️" title="Templates" titleZh="写作模板" desc="Format clues for kids" onClick={() => navigate('admin-templates')} color="#10B981" />
-        <QuickNavCard icon="👥" title="Profiles" titleZh="孩子档案" desc="Edit children's profiles" onClick={() => navigate('admin-profiles')} color="#EC4899" />
-        <QuickNavCard icon="🏆" title="Progress" titleZh="阅读进度" desc="Track all readers" onClick={() => navigate('admin')} color="#F97316" />
+        <QuickNavCard icon="📚" title="All Books" titleZh="所有书" desc={`${books.length} books total / 共${books.length}本书`} onClick={() => navigate('admin-books')} color="#3B82F6" />
+        <QuickNavCard icon="✏️" title="Templates" titleZh="写作模板" desc="Format clues for kids / 写作格式提示" onClick={() => navigate('admin-templates')} color="#10B981" />
+        <QuickNavCard icon="👥" title="Profiles" titleZh="孩子档案" desc="Edit children's profiles / 编辑孩子档案" onClick={() => navigate('admin-profiles')} color="#EC4899" />
+        <QuickNavCard icon="🏆" title="Progress" titleZh="阅读进度" desc="Track all readers / 追踪所有读者" onClick={() => navigate('admin')} color="#F97316" />
       </div>
 
       {/* Kid overview cards */}
@@ -126,7 +126,7 @@ export default function AdminDashboard() {
         {recentActivity.length === 0 ? (
           <div className="empty-state">
             <div className="empty-icon">📝</div>
-            <h3>No activity yet</h3>
+            <h3>No activity yet / 还没有动态</h3>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
@@ -138,7 +138,7 @@ export default function AdminDashboard() {
                     <span style={{ fontSize: '1.1rem' }}>{profile?.avatar || '📖'}</span>
                     <div style={{ flex: 1 }}>
                       <span style={{ fontWeight: 800, color: profile?.themeColor }}>{profile?.name}</span>
-                      <span style={{ color: 'var(--text-soft)', fontWeight: 600 }}> wrote a trail note for </span>
+                      <span style={{ color: 'var(--text-soft)', fontWeight: 600 }}> wrote a trail note for / 写了阅读足迹 </span>
                       <span style={{ fontWeight: 700 }}>{getBookTitle(note.bookId)}</span>
                     </div>
                     <div style={{ fontSize: '0.78rem', color: 'var(--text-light)', flexShrink: 0 }}>{note.date}</div>
@@ -214,14 +214,14 @@ function KidOverviewCard({ profile, stats, currentBooks, navigate }) {
       </div>
 
       <div className="grid-3" style={{ gap: '0.5rem', marginBottom: '0.85rem' }}>
-        <MiniStat color={profile.themeColor} value={stats.booksFinished} label="Done" />
-        <MiniStat color={profile.themeColor} value={stats.totalPagesRead} label="Pages" />
-        <MiniStat color={profile.themeColor} value={stats.trailNotes} label="Notes" />
+        <MiniStat color={profile.themeColor} value={stats.booksFinished} label="Done / 读完" />
+        <MiniStat color={profile.themeColor} value={stats.totalPagesRead} label="Pages / 页" />
+        <MiniStat color={profile.themeColor} value={stats.trailNotes} label="Notes / 足迹" />
       </div>
 
       <div style={{ marginBottom: '0.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-soft)', marginBottom: '0.3rem' }}>
-          <span>📚 Goal: {stats.booksFinished}/{goalCount} books</span>
+          <span>📚 Goal / 目标: {stats.booksFinished}/{goalCount} books / 本书</span>
           <span>{progress}%</span>
         </div>
         <div style={{ width: '100%', height: '8px', background: 'var(--border)', borderRadius: '4px', overflow: 'hidden' }}>

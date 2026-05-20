@@ -97,7 +97,7 @@ export default function VocabularyPage() {
               className="form-input"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search word or meaning..."
+              placeholder="Search word or meaning... / 搜索词语或意思"
             />
           </div>
           <div className="form-group">

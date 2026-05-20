@@ -51,7 +51,7 @@ export default function BookDetail() {
       <div className="page-container">
         <div className="empty-state">
           <div className="empty-icon">📚</div>
-          <h3>Book not found</h3>
+          <h3>Book not found / 找不到这本书</h3>
           <button className="btn btn-primary" onClick={() => navigate('books')}>Back to Books / 返回书架</button>
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function BookDetail() {
                 </span>
               )}
               <span className={`status-badge status-${book.status}`} style={{ background: 'rgba(255,255,255,0.9)' }}>
-                {book.status === 'finished' ? '✅ Finished' : book.status === 'started' ? '📖 Reading' : '📋 Not Started'}
+                {book.status === 'finished' ? '✅ Finished / 读完了' : book.status === 'started' ? '📖 Reading / 阅读中' : '📋 Not Started / 未开始'}
               </span>
             </div>
           </div>
@@ -231,7 +231,7 @@ export default function BookDetail() {
           </div>
           {rating && (
             <div style={{ marginTop: '0.4rem', fontSize: '0.85rem', color: 'var(--text-soft)' }}>
-              {['', 'Not my favorite 😕', 'It was okay 😐', 'Pretty good 😊', 'Really great 😃', 'Amazing! 🤩'][rating]}
+              {['', '😕 Not my favorite / 不喜欢', '😐 It was okay / 还可以', '😊 Pretty good / 很好', '😃 Really great! / 非常好！', '🤩 Amazing! / 太棒了！'][rating]}
             </div>
           )}
         </div>
@@ -347,7 +347,7 @@ export default function BookDetail() {
         {trailNotes.length === 0 ? (
           <div className="empty-state" style={{ padding: '2rem', background: 'var(--bg-warm)', borderRadius: 'var(--radius-lg)' }}>
             <div className="empty-icon">📝</div>
-            <h3>No trail notes yet</h3>
+            <h3>No trail notes yet / 还没有阅读足迹</h3>
             <p>Write about what you're reading! / 记录你的阅读想法！</p>
             {book.status !== 'not_started' && (
               <button className="btn btn-primary" style={{ marginTop: '0.75rem' }} onClick={() => navigate('add-trail-note', book.id)}>
@@ -429,7 +429,7 @@ function TrailNoteCard({ note, onClick }) {
 
         <div style={{ textAlign: 'right', flexShrink: 0 }}>
           <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-soft)' }}>{note.date}</div>
-          <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.2rem' }}>✏️ Edit</div>
+          <div style={{ fontSize: '0.7rem', color: 'var(--text-light)', marginTop: '0.2rem' }}>✏️ Edit / 编辑</div>
         </div>
       </div>
     </div>
@@ -495,7 +495,7 @@ function FinishModal({
             </div>
             {rating && (
               <div style={{ fontSize: '0.85rem', color: 'var(--text-soft)', marginTop: '0.25rem' }}>
-                {['', '😕 Not my favorite', '😐 It was okay', '😊 Pretty good!', '😃 Really great!', '🤩 Amazing!!'][rating]}
+                {['', '😕 Not my favorite / 不喜欢', '😐 It was okay / 还可以', '😊 Pretty good! / 很好！', '😃 Really great! / 非常好！', '🤩 Amazing!! / 太棒了！'][rating]}
               </div>
             )}
           </div>

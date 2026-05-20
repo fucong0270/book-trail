@@ -194,6 +194,21 @@ export function AppProvider({ children }) {
     deleteDoc(doc(db, 'trailNotes', noteId)).catch(console.error);
   }, []);
 
+  const addHeartNote = useCallback((trailNoteId, text) => {
+    const heartNote = {
+      id: `hn${Date.now()}`,
+      authorId: activeProfileId,
+      text,
+      createdAt: new Date().toISOString(),
+    };
+    setTrailNotes(prev => prev.map(n => {
+      if (n.id !== trailNoteId) return n;
+      const updatedNote = { ...n, heartNotes: [...(n.heartNotes || []), heartNote] };
+      updateDoc(doc(db, 'trailNotes', trailNoteId), { heartNotes: updatedNote.heartNotes }).catch(console.error);
+      return updatedNote;
+    }));
+  }, [activeProfileId]);
+
   const addWritingTemplate = useCallback((tplData) => {
     const id = `wt${Date.now()}`;
     const newTpl = {
@@ -271,7 +286,7 @@ export function AppProvider({ children }) {
       getReaderStats,
       computeBadges,
       addBook, updateBook, deleteBook,
-      addTrailNote, updateTrailNote, deleteTrailNote,
+      addTrailNote, updateTrailNote, deleteTrailNote, addHeartNote,
       addWritingTemplate, updateWritingTemplate, deleteWritingTemplate,
       updateProfile,
     }}>

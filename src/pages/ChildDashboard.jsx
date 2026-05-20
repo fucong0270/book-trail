@@ -88,7 +88,7 @@ export default function ChildDashboard() {
                 transition: 'width 0.5s ease',
               }} />
             </div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-soft)', marginTop: '0.2rem' }}>{goalPercent}% done</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-soft)', marginTop: '0.2rem' }}>{goalPercent}% done / 完成</div>
           </div>
         </div>
       </div>
@@ -146,7 +146,7 @@ export default function ChildDashboard() {
           <div className="card" style={{ padding: '1.5rem' }}>
             <div className="empty-state" style={{ padding: '1rem' }}>
               <div className="empty-icon">📚</div>
-              <h3>No books in progress</h3>
+              <h3>No books in progress / 没有正在阅读的书</h3>
               <p>Start a new book! / 开始一本新书！</p>
               <button className="btn btn-primary" style={{ marginTop: '0.75rem' }} onClick={() => navigate('books')}>
                 Go to My Books / 去书架

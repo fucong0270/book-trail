@@ -186,7 +186,7 @@ export default function AdminTemplates() {
                   </div>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', flexShrink: 0 }}>
-                    <button className="btn btn-secondary btn-sm" onClick={() => openEdit(tpl)}>✏️ Edit</button>
+                    <button className="btn btn-secondary btn-sm" onClick={() => openEdit(tpl)}>✏️ Edit / 编辑</button>
                     <button className="btn btn-danger btn-sm" onClick={() => setDeleteConfirm(tpl.id)}>🗑️</button>
                   </div>
                 </div>

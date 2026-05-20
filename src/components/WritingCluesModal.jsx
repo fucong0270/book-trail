@@ -202,7 +202,7 @@ export default function WritingCluesModal({ onClose }) {
               {formats.length === 0 ? (
                 <div className="empty-state">
                   <div className="empty-icon">📋</div>
-                  <h3>No formats yet</h3>
+                  <h3>No formats yet / 还没有写作格式</h3>
                   <p>Ask Mom to add writing formats! / 请妈妈添加写作格式！</p>
                 </div>
               ) : (
@@ -241,7 +241,7 @@ export default function WritingCluesModal({ onClose }) {
                           style={{ flexShrink: 0, alignSelf: 'flex-start' }}
                           onClick={() => handleCopyFormat(template)}
                         >
-                          {isCopied ? '✓ Copied!' : '📋 Copy'}
+                          {isCopied ? '✓ Copied! / 已复制！' : '📋 Copy / 复制'}
                         </button>
                       </div>
                     </div>

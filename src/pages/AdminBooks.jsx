@@ -153,7 +153,7 @@ export default function AdminBooks() {
           <div className="form-group">
             <label className="form-label">🏷️ Category / 类型</label>
             <select className="form-select" value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
-              <option value="all">All Categories</option>
+              <option value="all">All Categories / 所有类型</option>
               {allCategories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
@@ -207,7 +207,7 @@ export default function AdminBooks() {
                     <td>
                       <span className={`status-badge status-${book.status}`}>
                         {book.status === 'finished' ? '✅' : book.status === 'started' ? '📖' : '📋'}
-                        {' '}{book.status === 'finished' ? 'Done' : book.status === 'started' ? 'Reading' : 'Not Started'}
+                        {' '}{book.status === 'finished' ? 'Done / 读完了' : book.status === 'started' ? 'Reading / 阅读中' : 'Not Started / 未开始'}
                       </span>
                     </td>
                     <td style={{ fontSize: '0.78rem', color: 'var(--text-soft)', maxWidth: '120px' }}>
@@ -350,9 +350,9 @@ function AdminBookModal({ form, setForm, onSave, onClose, isEditing, categories,
             <div className="form-group">
               <label className="form-label">📋 Status / 状态</label>
               <select className="form-select" value={form.status} onChange={f('status')}>
-                <option value="not_started">📋 Not Started</option>
-                <option value="started">📖 Reading</option>
-                <option value="finished">✅ Finished</option>
+                <option value="not_started">📋 Not Started / 未开始</option>
+                <option value="started">📖 Reading / 阅读中</option>
+                <option value="finished">✅ Finished / 读完了</option>
               </select>
             </div>
             <div className="form-group">
@@ -366,7 +366,7 @@ function AdminBookModal({ form, setForm, onSave, onClose, isEditing, categories,
 
           {form.status === 'finished' && (
             <div className="form-group">
-              <label className="form-label">⭐ Rating / 评分</label>
+              <label className="form-label">⭐ Rating / 我的评分</label>
               <div className="star-rating">
                 {[1, 2, 3, 4, 5].map(n => (
                   <span

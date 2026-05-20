@@ -155,7 +155,7 @@ function ProfileCard({
 
         <div style={{ flex: 1 }}>
           {isEditing ? (
-            <span style={{ fontSize: '0.78rem', color: 'var(--text-soft)' }}>Editing profile...</span>
+            <span style={{ fontSize: '0.78rem', color: 'var(--text-soft)' }}>Editing profile... / 编辑档案中...</span>
           ) : (
             <>
               <div style={{ fontWeight: 900, fontSize: '1.1rem' }}>{profile.name}</div>
@@ -169,7 +169,7 @@ function ProfileCard({
 
         <div style={{ display: 'flex', gap: '0.4rem' }}>
           {saved && (
-            <span style={{ color: '#065F46', fontWeight: 800, fontSize: '0.88rem' }}>✅ Saved!</span>
+            <span style={{ color: '#065F46', fontWeight: 800, fontSize: '0.88rem' }}>✅ Saved! / 已保存！</span>
           )}
           {!isEditing && (
             <button className="btn btn-secondary btn-sm" onClick={onEdit}>
